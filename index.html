@@ -35,7 +35,14 @@
         });
 
         if (response.ok) {
-          console.log(await response.json());
+          const dataa = await response.json();
+          
+          for (const [key, value] of Object.entries(data)) {
+            const input = document.querySelector(`input[name="${key}"]`);
+            if(input) {
+              input.value = value;
+            }
+          }
         }else {
            const error = await response.json();
             console.error('Error confirming payment:', error);
