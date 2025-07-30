@@ -38,6 +38,14 @@
           const data = await response.json();
           
           for (const [key, value] of Object.entries(data)) {
+            if(value === typeof Object) {
+              for(const [subKey, subValue] of Object.entries(value)) {
+                const subInput = document.querySelector(`input[name="${key}.${subKey}"]`);
+                if(subInput) {
+                  subInput.value = subValue;
+                }
+              }
+            }
             const input = document.querySelector(`input[name="${key}"]`);
             if(input) {
               input.value = value;
