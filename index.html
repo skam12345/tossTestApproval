@@ -37,20 +37,28 @@
         if (response.ok) {
           const data = await response.json();
           console.log('Payment confirmed:', data);
-          
+          const inputBox = document.getElementById('input-box');
           for (const [key, value] of Object.entries(data)) {
             if(typeof value === 'object' && value !== null && !Array.isArray(value)) {
               for(const [subKey, subValue] of Object.entries(value)) {
-                console.log(`Setting ${key}.${subKey} to ${subValue}`);
-                const subInput = document.querySelector(`input[name="${key}.${subKey}"]`);
+                const subInput = document.createElement('input');
+                subInput.type = 'hidden';
+                subInput.name = `${key}.${subKey}`;
+                subInput.value = subValue;
+                inputBox.appendChild(subInput);
+                
                 if(subInput) {
                   subInput.value = subValue;
                 }
               }
             }
-            const input = document.querySelector(`input[name="${key}"]`);
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            inputBox.appendChild(input);
             if(input) {
-              input.value = value;
+              
             }
           }
         }else {
@@ -124,54 +132,7 @@
 </script>
 <body>
 <div class="wrapper w-100">
-<div class="flex-column align-center confirm-loading w-100 max-w-540">
-  <input type="hidden" name="mId">
-  <input type="hidden" name="lastTransactionKey">
-  <input type="hidden" name="paymentKey">
-  <input type="hidden" name="orderId">
-  <input type="hidden" name="orderName">
-  <input type="hidden" name="taxExemptionAmount">
-  <input type="hidden" name="status">
-  <input type="hidden" name="requestedAt">
-  <input type="hidden" name="approvedAt">
-  <input type="hidden" name="useEscrow">
-  <input type="hidden" name="cultureExpense">
-  <input type="hidden" name="type">
-  <input type="hidden" name="country">
-  <input type="hidden" name="isPartialCancelable">
-  <input type="hidden" name="currency">
-  <input type="hidden" name="totalAmount">
-  <input type="hidden" name="balanceAmount">
-  <input type="hidden" name="suppliedAmount">
-  <input type="hidden" name="vat">
-  <input type="hidden" name="taxFreeAmount">
-  <input type="hidden" name="method">
-  <input type="hidden" name="version">
-
-  <!-- card -->
-  <input type="hidden" name="card.issuerCode">
-  <input type="hidden" name="card.acquirerCode">
-  <input type="hidden" name="card.number">
-  <input type="hidden" name="card.installmentPlanMonths">
-  <input type="hidden" name="card.isInterestFree">
-  <input type="hidden" name="card.interestPayer">
-  <input type="hidden" name="card.approveNo">
-  <input type="hidden" name="card.useCardPoint">
-  <input type="hidden" name="card.cardType">
-  <input type="hidden" name="card.ownerType">
-  <input type="hidden" name="card.acquireStatus">
-  <input type="hidden" name="card.amount">
-
-  <!-- easyPay -->
-  <input type="hidden" name="easyPay.provider">
-  <input type="hidden" name="easyPay.amount">
-  <input type="hidden" name="easyPay.discountAmount">
-
-  <!-- receipt -->
-  <input type="hidden" name="receipt.url">
-
-  <!-- checkout -->
-  <input type="hidden" name="checkout.url">
+<div id="input-box"  class="flex-column align-center confirm-loading w-100 max-w-540">
 </div>
 </div>
 </body>
