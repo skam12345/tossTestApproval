@@ -38,8 +38,9 @@
           const data = await response.json();
           
           for (const [key, value] of Object.entries(data)) {
-            if(value === typeof Object) {
+            if(typeof value === 'object' && value !== null && !Array.isArray(value)) {
               for(const [subKey, subValue] of Object.entries(value)) {
+                console.log(`Setting ${key}.${subKey} to ${subValue}`);
                 const subInput = document.querySelector(`input[name="${key}.${subKey}"]`);
                 if(subInput) {
                   subInput.value = subValue;
