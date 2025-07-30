@@ -36,6 +36,7 @@
 
         if (response.ok) {
           const data = await response.json();
+          console.log('Payment confirmed:', data);
           
           for (const [key, value] of Object.entries(data)) {
             if(typeof value === 'object' && value !== null && !Array.isArray(value)) {
