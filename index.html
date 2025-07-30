@@ -19,6 +19,7 @@
         console.log('amount', amount);
         
         let secretKey = btoa('test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6');
+        console.log('secretKey', secretKey);
         
         const response = await fetch('https://api.tosspayments.com/v1/payments/confirm', {
           method: 'POST',
